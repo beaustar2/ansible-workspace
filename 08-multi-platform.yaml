@@ -15,6 +15,7 @@
 
     - name: Install Debian
       apt:
-        name: "{{ 'Debian' }}"
-      when: "'Debian GNU/Linux 12' in os_release_output.stdout"
+        name: sudo
+        state: present
+      when: os_release_output.stdout is search('Debian')
 ...
