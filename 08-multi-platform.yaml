@@ -1,5 +1,5 @@
 ---
-- name: Install OS
+- name: Install HTTP server
   hosts: g4
   become: yes
 
@@ -8,14 +8,13 @@
       command: "cat /etc/os-release"
       register: os_release_output
 
-    - name: Install CentOS
+    - name: Install HTTP Server on CentOS
       yum:
-        name: "{{ 'centos-release' }}"
+        name: httpd
       when: "'CentOS Linux 7' in os_release_output.stdout"
 
-    - name: Install Debian
+    - name: Install HTTP Debian
       apt:
-        name: sudo
-        state: present
-      when: os_release_output.stdout is search('Debian')
+        name: apache2
+      when: "'Debian' in os_release_output.stdout"
 ...
