@@ -15,6 +15,6 @@
 
     - name: Install HTTP Debian
       apt:
-        name: apache2
+        name: apache2-bin
       when: "'Debian' in os_release_output.stdout"
 ...
