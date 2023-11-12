@@ -15,6 +15,6 @@
 
     - name: Install Debian
       apt:
-        name: "{{ 'Debian GNU/Linux' }}"
+        name: "{{ 'Debian' }}"
       when: "'Debian GNU/Linux 12' in os_release_output.stdout"
 ...
