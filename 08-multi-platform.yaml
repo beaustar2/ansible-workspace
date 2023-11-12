@@ -10,11 +10,11 @@
 
     - name: Install CentOS
       yum:
-        name: "{{ 'CentOS 7' }}"
-      when: "'CentOS Linux 7 (Core)' in os_release_output.stdout"
+        name: "{{ 'centos-release' }}"
+      when: "'CentOS Linux 7' in os_release_output.stdout"
 
     - name: Install Debian
       apt:
-        name: "{{ 'Debian 12' }}"
-      when: "'Debian GNU/Linux 12 (bookworm)' in os_release_output.stdout"
+        name: "{{ 'Debian GNU/Linux' }}"
+      when: "'Debian GNU/Linux 12' in os_release_output.stdout"
 ...
