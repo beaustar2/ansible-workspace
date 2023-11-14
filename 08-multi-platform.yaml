@@ -1,41 +1,45 @@
 ---
 - name: Update HTTP server
   hosts: g3
-  
+
   tasks:
     - name: Install HTTPD on Amazon
       dnf:
         name: httpd
         state: present
-      when: ansible_distribution == "Amazon"
+      when: ansible_distribution == "Amazon" or ansible_distribution == "Centos"
 
     - name: Start Httpd on Amazon
       service:
         name: httpd
         state: started
-      when: ansible_distribution == "Amazon"
+      when: ansible_distribution == "Amazon" or ansible_distribution == "Centos"
+
 
     - name: Enable Httpd on Amazon
       service:
         name: httpd
         enabled: yes
-      when: ansible_distribution == "Amazon"
+      when: ansible_distribution == "Amazon" or ansible_distribution == "Centos"
+
 
     - name: Install Apache2 on Ubuntu
       apt:
         name: apache2
         state: present
-      when: ansible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
-    - name: Start Apache2 on Ubuntu
+
+    - name: Start Apache2
       service:
         name: apache2
         state: started
-      when: ansible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
-    - name: Enable Apache2 on Ubuntu
+
+    - name: Enable Apache2
       service:
         name: apache2
         enabled: yes
-      when: ansible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 ...
