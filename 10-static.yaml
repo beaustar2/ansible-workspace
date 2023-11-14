@@ -1,6 +1,6 @@
 ---
 - name: Static page
-  hosts: N2
+  hosts: g4
   become: yes
 
   tasks:
