@@ -1,25 +1,41 @@
 ---
-- name: Install HTTP server
-  hosts: g4
-  become: yes
+- name: Update HTTP server
+  hosts: g3
 
   tasks:
-    - name: Check OS Distribution
-      command: "cat /etc/os-release"
-      register: os_release_output
+  - name: Install HTTPD
+    dnf:
+      name: httpd
+      state: present
+    when ansible_distribution == "Amazon"
 
-    - name: Update package lists
-      apt:
-        update_cache: yes
-      when: "'Debian' in os_release_output.stdout"
+  - name: Start Httpd
+    service:
+      name: httpd
+      state: started
+    when ansible_distribution == "Amazon"
 
-    - name: Install HTTP Server on CentOS
-      yum:
-        name: httpd
-      when: "'CentOS Linux 7' in os_release_output.stdout"
+  - name: Enable Httpd
+    service:
+      name: httpd
+      enabled: yes
+    when ansible_distribution == "Amazon"
+  
+  - name: Install Apache2
+    apt:
+      name: apache2
+      state: present
+    when ansible_distribution == "Ubuntu"
 
-    - name: Install HTTP Server on Debian
-      apt:
-        name: apache2
-      when: "'Debian' in os_release_output.stdout"
+  - name: Start Apache2
+    service:
+      name: apache2
+      state: started
+    when ansible_distribution == "Ubuntu"
+
+  - name: Enable Apache2
+    service:
+      name: apache2
+      enabled: yes
+    when ansible_distribution == "Ubuntu"
 ...

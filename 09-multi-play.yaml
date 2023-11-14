@@ -1,0 +1,25 @@
+---
+- name: Install HTTP server
+  hosts: g4
+  become: yes
+
+  tasks:
+    - name: Check OS Distribution
+      command: "cat /etc/os-release"
+      register: os_release_output
+
+    - name: Update package lists
+      apt:
+        update_cache: yes
+      when: "'Debian' in os_release_output.stdout"
+
+    - name: Install HTTP Server on CentOS
+      yum:
+        name: httpd
+      when: "'CentOS Linux 7' in os_release_output.stdout"
+
+    - name: Install HTTP Server on Debian
+      apt:
+        name: apache2
+      when: "'Debian' in os_release_output.stdout"
+...
