@@ -1,0 +1,14 @@
+---
+- name: Variable Demo
+  hosts: g4
+  become: yes
+  vars:
+    myusername: KikiBeau IT
+
+  tasks:
+  - name: update dynamic page
+    template:
+      src: Dynamic.j2
+      dest: /var/www/html/dynamic.html
+      force: yes
+...
